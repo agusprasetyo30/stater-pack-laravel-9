@@ -15,6 +15,11 @@
 				<li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
 				</ul>
 			</li>
+			@can('index-user')
+				<li class="nav-item">
+					<li><a class="nav-link" href="{{ route('user.index') }}"><i class="fas fa-users"></i> User List</a></li>
+				</li>
+			@endcan
 		@show
 	</ul>
 

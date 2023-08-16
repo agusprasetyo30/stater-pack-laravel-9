@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,17 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('layouts.app');
-    // return view('dashboard.home');
+    if (auth()->user()) {
+        return redirect()->route('home');
+    }
+
     return view('auth.login');
 });
-
-
-// Route::group(['middleware' => ['auth', 'verified']], function() {
-//     Route::get('home', function() {
-//         return view('dashboard.home');
-//     })->name('home');
-// });
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('home', function() {
@@ -34,4 +30,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/edit-profile', function() {
         return view('dashboard.profile');
     })->name('profile.edit');
+
+    Route::resource('user', UserController::class);
 });
